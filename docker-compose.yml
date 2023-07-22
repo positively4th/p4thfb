@@ -1,0 +1,69 @@
+services:
+  
+  import:
+    container_name: p4thfb-import
+    build: 
+      context: ./p4thfb_import
+      dockerfile: import.dockerfile
+    tty: true
+    stdin_open: true
+    depends_on:
+      - postgres
+    restart: always
+    volumes:
+      - ${DATA_VOLUME}/import:/data:rw
+
+  app:
+    container_name: p4thfb-app
+    build: 
+      context: ./p4thfb_app
+      dockerfile: app.dockerfile
+    tty: true
+    stdin_open: true
+    depends_on:
+      - api
+    restart: always
+    ports:
+      - "80:8080"
+    expose:
+      - "8080"
+    volumes:
+      - ${DATA_VOLUME}/app:/data:rw
+
+  api:
+    container_name: p4thfb-api
+    build: 
+      context: ./p4thfb_api
+      dockerfile: api.dockerfile
+    depends_on:
+      - postgres
+    restart: always
+    ports:
+      - "3030:3000"
+    expose:
+      - "3000"
+    volumes:
+      - ${DATA_VOLUME}/api:/data:rw
+
+  postgres:
+    container_name: p4thfb-postgres
+    build: 
+      context: ./p4thfb_api
+      dockerfile: postgres.dockerfile
+      args:
+        - postgres_password=${POSTGRES_PASSWORD}
+        - postgres_db=${POSTGRES_DB}
+        - postgres_user=${POSTGRES_USER}
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      PGDATA: pgdata
+    ports:
+      - "${PGHOSTPORT}:5432"
+    expose:
+      - "5432"
+    volumes:
+      - ${DATA_VOLUME}/postgres:/pgdata:rw
+
