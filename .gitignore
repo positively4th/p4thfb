@@ -2,6 +2,6 @@
 
 *~
 
-p4thfb_api
-p4thfb_app
-p4thfb_import
+#p4thfb_api
+#p4thfb_app
+#p4thfb_import

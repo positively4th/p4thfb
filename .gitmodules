@@ -1,0 +1,9 @@
+[submodule "p4thfb_import"]
+	path = p4thfb_import
+	url = https://github.com/positively4th/p4thfb_import.git
+[submodule "p4thfb_app"]
+	path = p4thfb_app
+	url = https://github.com/positively4th/p4thfb_app.git
+[submodule "p4thfb_api"]
+	path = p4thfb_api
+	url = https://github.com/positively4th/p4thfb_api.git
