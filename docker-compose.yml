@@ -67,3 +67,9 @@ services:
     volumes:
       - ${DATA_VOLUME}/postgres:/pgdata:rw
 
+
+
+#networks:
+#   default:
+#     external: true
+#     name: none
