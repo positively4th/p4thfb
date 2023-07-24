@@ -49,13 +49,24 @@ docker-remove: docker-stop
 
 
 #docker-postgres
-docker-postgres-start: 
+docker-postgres-start:
 	make -C p4thfb_api docker-postgres
 	docker compose up -d postgres
 
 docker-postgres-stop: 
 	docker compose stop postgres
 	docker compose rm postgres
+
+#docker-grafana
+docker-grafana-build: 
+	docker compose build --progress=plain grafana
+
+docker-grafana-start: docker-grafana-build 
+	docker compose up grafana
+
+docker-grafana-stop: 
+	docker compose stop grafana
+	docker compose rm grafana
 
 
 #p4thfb

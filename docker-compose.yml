@@ -45,6 +45,21 @@ services:
     volumes:
       - ${DATA_VOLUME}/api:/data:rw
 
+  grafana:
+    container_name: grafana
+    build: 
+      context: ./
+      dockerfile: grafana.dockerfile
+    restart: always
+    env_file:
+      - .env.grafana
+    ports:
+      - "4000:4000"
+    user: "0:0"
+    volumes:
+      - ${DATA_VOLUME}/api:/data:rw
+
+
   postgres:
     container_name: p4thfb-postgres
     build: 
@@ -67,9 +82,3 @@ services:
     volumes:
       - ${DATA_VOLUME}/postgres:/pgdata:rw
 
-
-
-#networks:
-#   default:
-#     external: true
-#     name: none
